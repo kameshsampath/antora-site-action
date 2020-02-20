@@ -1,5 +1,7 @@
 FROM docker.io/antora/antora:2.2.0
 
-COPY entrypoint.sh /entrypoint.sh
+WORKDIR /github/workspace
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["antora","--stacktrace"]
+
+CMD ["antora-playbook.yml"]

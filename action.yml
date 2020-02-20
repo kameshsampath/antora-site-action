@@ -1,0 +1,12 @@
+name: "Antora Site"
+description: "Generate the Antora site"
+inputs:
+  antora_playbook:
+    description: 'The Antora playbook file'
+    required: true
+    default: 'site.yaml'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+     - ${{ inputs.antora_playbook}}

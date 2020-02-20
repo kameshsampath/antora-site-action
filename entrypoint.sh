@@ -3,6 +3,13 @@
 set -o pipefail
 set -eu 
 
-cd /github/home
+echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+echo "GITHUB_WORKSPACE: $GITHUB_RUNNER_WORKSPACE"
 
-antora --stacktrace $1
+ls -ltr $GITHUB_WORKSPACE
+
+ls -ltr $GITHUB_RUNNER_WORKSPACE
+
+cd $GITHUB_WORKSPACE
+
+antora --stacktrace $INPUT_ANTORA_PLAYBOOK

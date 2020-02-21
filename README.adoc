@@ -4,7 +4,10 @@ GitHub action that can be used to generate the https://antora.org/[Antora] site.
 
 == Parameters
 
-The action has only one parameter `antora_playbook`, that specifies the Antora playbook path within the repository.
+The action has only two parameters:
+ 
+* `antora_playbook` -- that specifies the Antora playbook path within the repository
+* `site_sources_path` -- the path within `$GITHUB_WORKSPACE` from where to run the site generation
 
 == How to add to your action
 

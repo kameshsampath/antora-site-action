@@ -1,5 +1,8 @@
 name: "Antora Site"
 description: "Generate the Antora site"
+branding:
+  icon: book-open
+  color: yellow
 inputs:
   antora_playbook:
     description: 'The Antora playbook file'

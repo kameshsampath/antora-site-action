@@ -5,8 +5,12 @@ inputs:
     description: 'The Antora playbook file'
     required: true
     default: 'site.yaml'
+  site_sources_path:
+    description: 'The path relative to workspace root, where the asciidoc sources exits'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
      - ${{ inputs.antora_playbook}}
+     - ${{ inputs.site_sources_path }}

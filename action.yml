@@ -7,8 +7,7 @@ inputs:
     default: 'site.yaml'
   site_sources_path:
     description: 'The path relative to workspace root, where the asciidoc sources exits'
-    required: true
-    default: "${{ github.workspace }}"
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'

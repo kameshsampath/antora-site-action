@@ -1,6 +1,5 @@
 #!/bin/sh
 
-set 
 set -eu 
 set -o pipefail 
 

@@ -14,7 +14,7 @@ args="${args} --stacktrace"
 
 if [ "$INPUT_ANTORA_LUNR_DOCSEARCH_ENABLED" = true ] ; then
 	npm install @antora/lunr-extension
-	args="${args} --extension @antora/lunr-extension"
+#	args="${args} --extension @antora/lunr-extension"
 fi
 
 cd $GITHUB_WORKSPACE/$INPUT_SITE_SOURCES_PATH

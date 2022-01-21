@@ -9,14 +9,14 @@ echo "Using args:
  docsearch enabled: $INPUT_ANTORA_LUNR_DOCSEARCH_ENABLED
  "
 
-args=()
+#args=()
 
-args +=( '--stacktrace' )
+#args +=( '--stacktrace' )
 
-if [ "$INPUT_ANTORA_LUNR_DOCSEARCH_ENABLED" = true ] ; then
-	npm install @antora/lunr-extension
-	args +=( '--extension @antora/lunr-extension' )
-fi
+#if [ "$INPUT_ANTORA_LUNR_DOCSEARCH_ENABLED" = true ] ; then
+#	npm install @antora/lunr-extension
+#	args +=( '--extension @antora/lunr-extension' )
+#fi
 
 pwd
 
@@ -27,4 +27,4 @@ cd $GITHUB_WORKSPACE/$INPUT_SITE_SOURCES_PATH
 ls -ltr $GITHUB_WORKSPACE/$INPUT_SITE_SOURCES_PATH
 
 NODE_PATH="$(npm -g root)" \
-antora "${args[@]}" generate $INPUT_ANTORA_PLAYBOOK
+#antora "${args[@]}" generate $INPUT_ANTORA_PLAYBOOK

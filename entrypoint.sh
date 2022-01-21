@@ -22,4 +22,4 @@ cd $GITHUB_WORKSPACE/$INPUT_SITE_SOURCES_PATH
 ls -ltr $GITHUB_WORKSPACE/$INPUT_SITE_SOURCES_PATH
 
 NODE_PATH="$(npm -g root)" \
-antora "${args}" generate $INPUT_ANTORA_PLAYBOOK
+echo antora "${args}" generate $INPUT_ANTORA_PLAYBOOK

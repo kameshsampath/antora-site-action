@@ -25,5 +25,5 @@ args="${args} ${INPUT_ANTORA_PLAYBOOK}"
 
 NODE_PATH="$(npm -g root)" \
 
-echo RUNNING: antora "${args}"
-antora "${args}"
+echo RUNNING: antora ${args}
+antora ${args}

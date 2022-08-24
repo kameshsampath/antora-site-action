@@ -1,23 +1,29 @@
 #!/bin/sh
 
-set -eu 
-set -o pipefail 
+set -eu
+set -o pipefail
 
 echo "Using args:
  src: $INPUT_SITE_SOURCES_PATH
  playbook: $INPUT_ANTORA_PLAYBOOK
- generator: $INPUT_ANTORA_GENERATOR
- docsearch enabled: $INPUT_ANTORA_DOCSEARCH_ENABLED
- docsearch indexed version: $INPUT_ANTORA_DOCSEARCH_INDEX_VERSION
+ docsearch enabled: $INPUT_ANTORA_LUNR_DOCSEARCH_ENABLED
  "
+
+args=""
+args="${args} --stacktrace"
+
+if [ "$INPUT_ANTORA_LUNR_DOCSEARCH_ENABLED" = true ] ; then
+	npm install @antora/lunr-extension
+#	args="${args} --extension @antora/lunr-extension"
+fi
 
 cd $GITHUB_WORKSPACE/$INPUT_SITE_SOURCES_PATH
 
 ls -ltr $GITHUB_WORKSPACE/$INPUT_SITE_SOURCES_PATH
 
+args="${args} ${INPUT_ANTORA_PLAYBOOK}"
+
 NODE_PATH="$(npm -g root)" \
-DOCSEARCH_ENABLED=$INPUT_ANTORA_DOCSEARCH_ENABLED \
-DOCSEARCH_INDEX_VERSION=$INPUT_ANTORA_DOCSEARCH_INDEX_VERSION \
-antora \
---generator $INPUT_ANTORA_GENERATOR \
---stacktrace $INPUT_ANTORA_PLAYBOOK
+
+echo RUNNING: antora ${args}
+antora ${args}

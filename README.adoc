@@ -1,8 +1,11 @@
 = Antora Site GitHub Action
 
-GitHub action that can be used to generate the https://antora.org/[Antora] site.
+GitHub action that can be used to generate the https://antora.org/[Antora] site using Antora 3.0.1.
 
-It supports as opt-in the https://github.com/Mogztter/antora-site-generator-lunr[Lunr] index generator for documentation search.
+It supports as opt-in the https://gitlab.com/antora/antora-lunr-extension[Lunr] index generator extension for documentation search.
+
+== Important Note: This is Deprecated!
+This is no longer maintained and no longer the suggested way to generate an Antora site on GitHub Pages. Instead see the https://docs.antora.org/antora/latest/publish-to-github-pages/[updated instructions in the Antora documentation] which explain how to automatically use the latest stable version of Antora directly in a GitHub workflow. See the https://gitlab.com/antora/antora/-/issues/940[Antora Issue #940] for more details on the change, essentially you only save about 2 seconds by having a custom GitHub Action with Antora installed over installing Antora and NPM as part of the workflow and things are much less prone to future breakage.
 
 == Parameters
 
@@ -10,36 +13,46 @@ The action accepts the following parameters:
  
 * `antora_playbook` -- that specifies the Antora playbook path within the repository
 * `site_sources_path` -- the path within `$GITHUB_WORKSPACE` from where to run the site generation
-* `antora_generator` -- Select antora generator for site
-* `antora_docsearch_enabled` -- Flag for enabling antora docsearch
-* `antora_docsearch_index_version` -- Select the document version to be indexed
+* `antora_lunr_docsearch_enabled` -- Flag for downloading antora docsearch extension from npm
 
 == How to add to your action
 
 [source,yaml]
 ----
 name: "Generate site using antora site action"
-uses: kameshsampath/antora-site-action@v0.3.0
+uses: bfranske/antora-site-action@master
 with:
     antora_playbook: antora-playbook.yml
     # optional path within the repo, defaults to ${{github.workspace}}
     site_sources_path: 'site-sources-folder'
 ----
-
-A complete example is available https://github.com/kameshsampath/antora-test-site[here].
 
 == How to add to your action for Lunr documentation search index
 
 [source,yaml]
 ----
-name: "Generate site and doc search index using antora site action"
-uses: kameshsampath/antora-site-action@v0.3.0
+name: "Generate site and Lunr doc search index using antora site action"
+uses: bfranske/antora-site-action@master
 with:
     antora_playbook: antora-playbook.yml
     # optional path within the repo, defaults to ${{github.workspace}}
     site_sources_path: 'site-sources-folder'
-    antora_generator: 'antora-site-generator-lunr'
-    antora_docsearch_enabled: 'true'
+    antora_lunr_docsearch_enabled: 'true'
 ----
 
-A complete example using Lunr is available https://github.com/camptocamp/devops-stack/blob/master/.github/workflows/website.yml#L31[here].
+Note, this will only add the lunr extension to the build environment. You must also enable the extension and provide supplemental UI files in your antora playbook.
+
+[source,yaml]
+----
+ui: 
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./node_modules/@antora/lunr-extension/supplemental_ui
+antora:
+  extensions:
+  - require: '@antora/lunr-extension'
+    index_latest_only: true
+----
+
+See the https://gitlab.com/antora/antora-lunr-extension[Antor Lunr Extension project] for more details.
